@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#14100f" />
+    <meta
+      name="description"
+      content="Chatea con Kratos, el Fantasma de Esparta. Prueba de concepto de ComicSansCon: SPA en JavaScript vanilla con Vercel Functions y Google Gemini."
+    />
+    <title>Chatea con Kratos </title>
+    <link rel="icon" href="./src/assets/img/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#app">Saltar al contenido principal</a>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="/" data-link>
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span class="brand__text">Proyecto M3 <span class="brand__accent">Nelson Arzuza</span></span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="nav"
+          aria-label="Abrir menu de navegacion"
+        >
+          <span class="nav-toggle__bar" aria-hidden="true"></span>
+          <span class="nav-toggle__bar" aria-hidden="true"></span>
+          <span class="nav-toggle__bar" aria-hidden="true"></span>
+        </button>
+
+        <nav class="nav" id="nav" aria-label="Navegacion principal">
+          <a class="nav__link" href="/">Inicio</a>
+          <a class="nav__link" href="/chat">Chat</a>
+          <a class="nav__link" href="/about">Acerca de</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main" id="app"></main>
+
+    <footer class="site-footer">
+      <p>
+        Proyecto M3 Nelson Aruzuza. Kratos y <em>God of War</em> son propiedad de Sony Interactive
+        Entertainment / Santa Monica Studio.
+      </p>
+    </footer>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
