@@ -54,6 +54,7 @@ export function renderChat() {
   `;
 
   const messageList = app.querySelector("#message-list");
+  const chatScroll = app.querySelector("#chat-scroll");
   const form = app.querySelector("#chat-form");
   const input = app.querySelector("#chat-input");
   const submitButton = app.querySelector("#chat-submit");
@@ -87,8 +88,8 @@ export function renderChat() {
 
     messageList.innerHTML = renderedHistory + typingMarkup;
 
-    if (messageList.scrollTo) {
-      messageList.scrollTop = messageList.scrollHeight;
+    if (chatScroll) {
+      chatScroll.scrollTop = chatScroll.scrollHeight;
     }
   };
 
