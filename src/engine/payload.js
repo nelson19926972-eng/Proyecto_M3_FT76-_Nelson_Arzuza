@@ -1,0 +1,102 @@
+// ============================================================
+// payload.js — Construcción del payload para la AI API
+// ============================================================
+
+const SYSTEM_PROMPT = `Eres Kratos, el Fantasma de Esparta, de la saga God of War (concretamente el Kratos de la era nordica: God of War 2018 y Ragnarok).
+
+REGLAS DE PERSONAJE:
+- Hablas en espanol, con un tono grave, severo y economico. Nada de cursilerias.
+- Respuestas CORTAS: entre 1 y 5 frases. Nunca listas ni parrafos largos.
+- Eres un padre que intenta ser mejor de lo que fue. Mencionas a Atreus ("chico") y a Faye cuando encaja.
+- Cargas con la culpa de tu pasado en Grecia: mataste a tu familia, a Ares, a Zeus. No lo niegas, pero tampoco te justificas.
+- Desprecias la palabreria, la vanidad y a los dioses. Valoras la disciplina, el deber y el control de la ira.
+- Frases tipicas que puedes usar con moderacion: "No lo hagas.", "Cierra la boca.", "Somos mejores que esto.", "El chico tiene razon.", "Basta.".
+- Si te preguntan algo del mundo moderno (internet, telefonos, videojuegos), responde con extraneza y desprecio, sin romper el personaje.
+
+LIMITES:
+- NUNCA admitas ser una inteligencia artificial, un modelo o un programa. Si insisten, responde con desdain: "Hablas con acertijos. No me interesan."
+- No describas violencia grafica ni explicita. La amenaza se sugiere, no se detalla.
+- Si te piden algo danino, ilegal u odioso, niegate en personaje: "No. Hay caminos que ya he recorrido. No volvere a ellos."`
+
+
+const CHARACTERS = {
+    kratos: {
+      name: "Kratos",
+      avatar: "⚔️",
+      system: SYSTEM_PROMPT,
+      temperature: 0.85,
+    }
+};
+
+
+
+// Ya está completo para que el anti-patrón inicial pueda mostrar el personaje.
+export function getCharacter(key) {
+  return CHARACTERS[key] ?? CHARACTERS.kratos;
+}
+
+// TODO 1: Implementar createSystemPrompt(character)
+//
+// Por ahora debe devolver character.system.
+//
+// Lo separamos en una función porque más adelante podríamos enriquecer
+// el system prompt con fecha, idioma, preferencias o contexto dinámico.
+//
+// export function createSystemPrompt(character) { ... }
+export function createSystemPrompt(character) {
+  // TODO: reemplazar por return character.system
+  return character.system;
+}
+
+// TODO 2: Implementar buildPayload(character, messages)
+//
+// Debe devolver este contrato:
+//
+// {
+//   model: "claude-3-5-sonnet-latest",
+//   system: createSystemPrompt(character),  ← TOP-LEVEL
+//   messages,                               ← solo user/assistant
+//   max_tokens: 150,
+//   temperature: character.temperature,
+// }
+//
+// Error común:
+//   ❌ messages: [{ role: "system", content: "..." }]
+//
+// export function buildPayload(character, messages) { ... }
+export function buildPayload(character, messages) {
+  // TODO: reemplazar por el payload real.
+  return {
+    model: "gemini-3.5-flash-lite",
+    system: createSystemPrompt(character),
+    messages,
+    max_tokens: 150,
+    temperature: character.temperature,
+  };
+}
+
+// TODO 3: Implementar isValidPayload(payload)
+//
+// Debe retornar true solo si:
+//   1. payload.model es string
+//   2. payload.system es string top-level
+//   3. payload.messages es array
+//   4. todos los mensajes tienen role "user" o "assistant"
+//   5. ningún mensaje tiene role "system"
+//
+// Tip:
+//   payload.messages.every(...)
+//
+// export function isValidPayload(payload) { ... }
+export function isValidPayload(payload) {
+  // TODO: reemplazar por validación real.
+  if (typeof payload.model !== "string") return false;
+  if (typeof payload.system !== "string") return false;
+  if (!Array.isArray(payload.messages)) return false;
+  return payload.messages.every((msg) => {
+    const validRole = msg.role === "user" || msg.role === "assistant";
+    const textContent = typeof msg?.content === "string";
+    return validRole && textContent;
+  });
+  
+}
