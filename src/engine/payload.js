@@ -39,10 +39,10 @@ export function createSystemPrompt(character) {
 
 export function buildPayload(character, messages) {
   return {
-    model: "gemini-2.0-flash",
+    model: "gemini-3.1-flash-lite",
     system: createSystemPrompt(character),
     messages,
-    max_tokens: 150,
+    max_tokens: 120,
     temperature: character.temperature,
   };
 }
