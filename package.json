@@ -1,10 +1,10 @@
 {
-  "name": "Proyecto M3 - Nelson Arzuza",
+  "name": "proyecto-m3-nelson-arzuza",
   "version": "1.0.0",
   "description": "PIM3: proyecto integrador final basado en el chat serverless con Gemini",
   "type": "module",
   "scripts": {
-    "local": "npx --yes vercel dev",
+    "local": "npx --yes vercel dev --yes",
     "test": "vitest",
     "test:run": "vitest run"
   },

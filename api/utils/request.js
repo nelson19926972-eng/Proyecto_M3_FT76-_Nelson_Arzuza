@@ -1,7 +1,12 @@
-function parseJsonBody(body) {
+export function parseJsonBody(body) {
   if (typeof body === "string") {
-    return JSON.parse(body || "{}");
+    try {
+      return JSON.parse(body || "{}");
+    } catch {
+      return {};
+    }
   }
+
   return body ?? {};
 }
 
@@ -20,7 +25,7 @@ export function getMessages(payload) {
 export function getGenerationSettings(payload) {
   return {
     system: typeof payload?.system === "string" ? payload.system : "",
-    modelName: typeof payload?.model === "string" ? payload.model : "gemini-2.5-flash",
+    modelName: typeof payload?.model === "string" ? payload.model : "gemini-2.0-flash",
     temperature: typeof payload?.temperature === "number" ? payload.temperature : 0.7,
     maxOutputTokens: typeof payload?.max_tokens === "number" ? payload.max_tokens : 150,
   };

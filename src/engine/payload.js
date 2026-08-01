@@ -20,54 +20,26 @@ LIMITES:
 
 
 const CHARACTERS = {
-    kratos: {
-      name: "Kratos",
-      avatar: "⚔️",
-      system: SYSTEM_PROMPT,
-      temperature: 0.85,
-    }
+  kratos: {
+    name: "Kratos",
+    avatar: "⚔️",
+    system: SYSTEM_PROMPT,
+    temperature: 0.85,
+  }
 };
 
 
-
-// Ya está completo para que el anti-patrón inicial pueda mostrar el personaje.
 export function getCharacter(key) {
   return CHARACTERS[key] ?? CHARACTERS.kratos;
 }
 
-// TODO 1: Implementar createSystemPrompt(character)
-//
-// Por ahora debe devolver character.system.
-//
-// Lo separamos en una función porque más adelante podríamos enriquecer
-// el system prompt con fecha, idioma, preferencias o contexto dinámico.
-//
-// export function createSystemPrompt(character) { ... }
 export function createSystemPrompt(character) {
-  // TODO: reemplazar por return character.system
   return character.system;
 }
 
-// TODO 2: Implementar buildPayload(character, messages)
-//
-// Debe devolver este contrato:
-//
-// {
-//   model: "claude-3-5-sonnet-latest",
-//   system: createSystemPrompt(character),  ← TOP-LEVEL
-//   messages,                               ← solo user/assistant
-//   max_tokens: 150,
-//   temperature: character.temperature,
-// }
-//
-// Error común:
-//   ❌ messages: [{ role: "system", content: "..." }]
-//
-// export function buildPayload(character, messages) { ... }
 export function buildPayload(character, messages) {
-  // TODO: reemplazar por el payload real.
   return {
-    model: "gemini-3.5-flash-lite",
+    model: "gemini-2.0-flash",
     system: createSystemPrompt(character),
     messages,
     max_tokens: 150,
@@ -75,21 +47,7 @@ export function buildPayload(character, messages) {
   };
 }
 
-// TODO 3: Implementar isValidPayload(payload)
-//
-// Debe retornar true solo si:
-//   1. payload.model es string
-//   2. payload.system es string top-level
-//   3. payload.messages es array
-//   4. todos los mensajes tienen role "user" o "assistant"
-//   5. ningún mensaje tiene role "system"
-//
-// Tip:
-//   payload.messages.every(...)
-//
-// export function isValidPayload(payload) { ... }
 export function isValidPayload(payload) {
-  // TODO: reemplazar por validación real.
   if (typeof payload.model !== "string") return false;
   if (typeof payload.system !== "string") return false;
   if (!Array.isArray(payload.messages)) return false;
@@ -98,5 +56,5 @@ export function isValidPayload(payload) {
     const textContent = typeof msg?.content === "string";
     return validRole && textContent;
   });
-  
+
 }
