@@ -27,7 +27,7 @@ export function renderAbout() {
         <li><strong>Routing:</strong> History API (<code>pushState</code> + <code>popstate</code>).</li>
         <li><strong>Estilos:</strong> CSS propio, mobile-first, Flexbox y Grid con media queries.</li>
         <li><strong>Backend:</strong> Vercel Serverless Function en <code>/api/chat</code>.</li>
-        <li><strong>Modelo:</strong> Google Gemini (<code>gemini-3.5-flash-lite</code>).</li>
+        <li><strong>Modelo:</strong> Google Gemini (<code>gemini-3.1-flash-lite</code>).</li>
         <li><strong>Tests:</strong> Vitest con <code>fetch</code> mockeado, sin red.</li>
       </ul>
 
@@ -44,8 +44,8 @@ export function renderAbout() {
       <h2>Parametros del modelo</h2>
       <ul>
         <li><strong>temperature 0.85:</strong> suficiente creatividad para que suene humano sin desvariar.</li>
-        <li><strong>maxOutputTokens 300:</strong> techo de longitud; ademas controla el coste.</li>
-        <li><strong>Historial recortado:</strong> se envian los ultimos 20 mensajes para no inflar los tokens.</li>
+        <li><strong>maxOutputTokens 120:</strong> techo de longitud; ademas controla el coste.</li>
+        <li><strong>Historial recortado:</strong> se envian los ultimos 10 mensajes para no inflar los tokens.</li>
         <li><strong>Rate limiting:</strong> un 429 de Gemini se traduce en un aviso claro con boton de reintento.</li>
       </ul>
 
