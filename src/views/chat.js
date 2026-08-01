@@ -114,6 +114,13 @@ export function renderChat() {
     submitButton.disabled = input.value.trim() === "";
   });
 
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      form.requestSubmit();
+    }
+  });
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
