@@ -1,5 +1,9 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { isRateLimitError, getHttpStatus } from "./utils/errors.js";
+import {
+  isRateLimitError,
+  getHttpStatus,
+  NO_TOKENS_MESSAGE,
+} from "./utils/errors.js";
 import { toGeminiContents } from "./utils/gemini.js";
 import { parseJsonBody, getMessages, getGenerationSettings } from "./utils/request.js";
 import { createChatResponse } from "./utils/response.js";
@@ -46,8 +50,8 @@ export default async function handler(req, res) {
 
     if (isRateLimitError(error)) {
       return res.status(429).json({
-        error: "Rate limit de Gemini. Reintentá en unos segundos.",
-        retryAfterSeconds: 8,
+        error: NO_TOKENS_MESSAGE,
+        retryAfterSeconds: 86400,
       });
     }
 
