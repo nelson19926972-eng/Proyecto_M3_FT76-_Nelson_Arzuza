@@ -1,37 +1,56 @@
 import { navigateTo } from "./router.js";
 
 export function setupLinkInterception() {
- 
   document.addEventListener("click", (event) => {
-    // 1. ¿El click fue en un <a> o dentro de uno?
     const link = event.target.closest("a");
     if (!link) return;
 
     const href = link.getAttribute("href");
     if (!href) return;
 
-    // 2. Casos que NO interceptamos.
-
-    // Ctrl/Cmd/Shift/Alt + click -> el usuario quiere nueva pestana/ventana.
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-
-    // target="_blank" -> disenado para abrir en otra pestana.
     if (link.target === "_blank") return;
-
-    // Diferente origin -> link externo, que navegue normalmente.
     if (link.origin !== window.location.origin) return;
-
-    // Anclas (#seccion) -> scroll interno, no navegacion.
     if (href.startsWith("#")) return;
-
-    // Protocolos especiales -> los maneja el sistema operativo o el navegador.
     if (href.startsWith("mailto:") || href.startsWith("tel:")) return;
-
-    // Solo interceptamos rutas internas absolutas.
     if (!href.startsWith("/")) return;
 
-    // 3. Si llegamos aca: SPA navigation.
     event.preventDefault();
     navigateTo(href);
   });
 }
+
+export function setupMobileNav() {
+  const toggle = document.getElementById("nav-toggle");
+  const nav = document.getElementById("nav");
+
+  if (!toggle || !nav) return;
+
+  const closeMenu = () => {
+    nav.classList.remove("is-open");
+    toggle.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+  };
+
+  toggle.addEventListener("click", () => {
+    const isOpen = nav.classList.toggle("is-open");
+    toggle.classList.toggle("is-open", isOpen);
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  nav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => closeMenu());
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!nav.classList.contains("is-open")) return;
+
+    const clickedInsideNav = nav.contains(event.target);
+    const clickedToggle = toggle.contains(event.target);
+
+    if (!clickedInsideNav && !clickedToggle) {
+      closeMenu();
+    }
+  });
+}
+
