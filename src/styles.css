@@ -661,7 +661,7 @@ a {
 
 /* ================================ media queries: tablet ================ */
 
-@media (min-width: 40rem) {
+@media (min-width: 768px) {
   .site-header__inner,
   .main {
     padding-inline: 1.5rem;
@@ -720,7 +720,7 @@ a {
 
 /* ================================ media queries: desktop =============== */
 
-@media (min-width: 64rem) {
+@media (min-width: 1024px) {
   .main {
     padding: 3rem 2rem 4rem;
   }

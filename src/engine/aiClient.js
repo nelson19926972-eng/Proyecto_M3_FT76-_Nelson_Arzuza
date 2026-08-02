@@ -19,7 +19,7 @@ export async function callAI(payload) {
   } catch (error) {
     if (error instanceof TypeError) {
       const err = new Error(
-        "El servidor no está activo. Ejecuta npm run dev o npm run local antes de usar el chat."
+        "El servidor no está activo. Ejecuta: >>npm run local<< antes de usar el chat."
       );
       err.status = 503;
       throw err;
