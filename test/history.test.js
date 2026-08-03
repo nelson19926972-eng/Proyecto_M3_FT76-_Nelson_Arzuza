@@ -1,7 +1,3 @@
-// ============================================================
-// history.test.js — Tests para history.js (Vitest, sin libs externas)
-// ============================================================
-
 import { describe, it, expect } from "vitest";
 import {
   appendUserMessage,

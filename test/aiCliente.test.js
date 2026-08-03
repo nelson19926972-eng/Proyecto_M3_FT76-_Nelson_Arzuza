@@ -1,7 +1,3 @@
-// ============================================================
-// aiClient.test.js — Tests para aiClient.js (Vitest, sin libs externas)
-// ============================================================
-
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { callAI } from "./src/engine/aiClient.js";
 

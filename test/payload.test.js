@@ -1,7 +1,3 @@
-// ============================================================
-// payload.test.js — Tests para payload.js (Vitest, sin libs externas)
-// ============================================================
-
 import { describe, it, expect } from "vitest";
 import {
   getCharacter,
