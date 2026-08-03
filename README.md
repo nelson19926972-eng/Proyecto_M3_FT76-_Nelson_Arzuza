@@ -157,80 +157,19 @@ npm test mockApi.test.js
 
 # Algunos prompt utilizados:
 
-1. Navegacion movil no funciona
-- prompt: ![p1](./src/assets/img/imgREADME/image.png)
-- iares: ![ai1](./src/assets/img/imgREADME/image-1.png)
-- codigo: ![c1](./src/assets/img/imgREADME/image-2.png)
+## Algunos prompts utilizados
 
-2. Error 404 not found
-- prompt: ![p2](./src/assets/img/imgREADME/image-3.png)
-- iares: ![ai2](./src/assets/img/imgREADME/image-4.png)
-- codigo: ![c2](./src/assets/img/imgREADME/image-5.png)
+| Situación | Prompt | Respuesta IA | Código |
+|-----------|--------|--------------|--------|
+| Navegación móvil no funciona | ![p1](./src/assets/img/imgREADME/image.png) | ![ai1](./src/assets/img/imgREADME/image-1.png) | ![c1](./src/assets/img/imgREADME/image-2.png) |
+| Error 404 not found | ![p2](./src/assets/img/imgREADME/image-3.png) | ![ai2](./src/assets/img/imgREADME/image-4.png) | ![c2](./src/assets/img/imgREADME/image-5.png) |
+| Auto scroll en el chat | ![p3](./src/assets/img/imgREADME/image-6.png) | ![ai3](./src/assets/img/imgREADME/image-7.png) | ![c3](./src/assets/img/imgREADME/image-8.png) |
+| Validación de tokens | ![p4](./src/assets/img/imgREADME/image-9.png) | ![ai4](./src/assets/img/imgREADME/image-10.png) | ![c4](./src/assets/img/imgREADME/image-11.png) |
+| Crear mockApi para tests locales | ![p5](./src/assets/img/imgREADME/image-12.png) | Ver detalle debajo de la tabla ⬇️ | ![c5](./src/assets/img/imgREADME/image-13.png) |
 
-3. Auto scroll api chat
-- prompt: ![p3](./src/assets/img/imgREADME/image-6.png)
-- iares: ![ai3](./src/assets/img/imgREADME/image-7.png)
-- codigo: ![c3](./src/assets/img/imgREADME/image-8.png)
-
-4. Validacion de tokens
-- prompt: ![p4](./src/assets/img/imgREADME/image-9.png)
-- iares: ![ai4](./src/assets/img/imgREADME/image-10.png)
-- codigo: ![c4](./src/assets/img/imgREADME/image-11.png)
-
-5. Crear mockApi para test locales
-- prompt: ![p5](./src/assets/img/imgREADME/image-12.png)
-- aires: Paso a paso: cómo hacerlo
-1) Mantener la API real intacta
-La función handler en chat.js sigue haciendo lo mismo cuando no estamos en test ni en mock explícito:
-
-valida método POST
-parsea el payload
-comprueba GEMINI_API_KEY
-llama a Google Generative AI
-devuelve la respuesta normal
-La diferencia es que antes de intentar usar Gemini, agrega una condición:
-
-si NODE_ENV === "test" o MOCK_API === "true", no llama a Google
-Esto es importante porque en Vitest ya viene NODE_ENV=test, así que no hace falta instalar nada extra.
-
-2) Crear un helper modular de mock
-En mockApi.js se separa la lógica:
-
-shouldUseMockApi(env) decide si hay que mockear
-getLastUserText(messages) saca el último mensaje del usuario
-buildMockChatResponse(...) arma una respuesta con la misma forma que la API real:
-id
-type
-role
-content
-stop_reason
-usage
-Esto deja los tests muy parecidos a la realidad, sin romper el contrato del cliente.
-
-3) Inyectar la condición en el handler
-En chat.js, la idea es esta:
-
-parsear payload
-si shouldUseMockApi(process.env):
-obtener messages
-construir respuesta mock
-devolver res.status(200).json(mockResponse)
-si no, continuar con la llamada real a Gemini
-Así el flujo real queda intacto y la mock se activa solo en local/test.
-
-4) Escribir test realista con Vitest
-En mockApi.test.js validamos dos cosas:
-
-que el selector de mock funciona
-que la respuesta mock tiene exactamente la forma esperada del chat
-No se usa ninguna librería extra: solo describe, it, expect de Vitest.
-
-- codigo: ![c5](./src/assets/img/imgREADME/image-13.png)
-
-**Criterio general:** la AI se uso para acelerar y para consultar dudas conceptuales, no para
-generar codigo a ciegas. Toda sugerencia se leyo, se probo en el navegador y se ajusto o se
-descarto cuando no encajaba con los requisitos.
-
+> **Detalle de la respuesta IA (mockApi):** el paso a paso completo (crear el helper `mockApi.js`,
+> inyectar la condición en `chat.js` según `NODE_ENV`/`MOCK_API`, y escribir el test en Vitest)
+> se documenta en texto en lugar de captura, ver commit correspondiente / historial del chat.
 ---
 
 ## Licencia y aviso
