@@ -136,8 +136,6 @@ npm test mockApi.test.js
 
 ## Capturas de pantalla
 
-> Sustituye estas lineas por tus propias capturas tras el despliegue.
-
 | Vista | Captura |
 |-------|---------|
 | Home (desktop) |![inicio desktop](./src/assets/img/imgREADME/image-home-desk.png)
