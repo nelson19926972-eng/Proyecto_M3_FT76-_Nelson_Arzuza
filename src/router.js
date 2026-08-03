@@ -19,8 +19,9 @@ export function router() {
 }
 
 function normalizePath(path) {
-    return path.length > 1 ? path.replace(/\/$/, "") : path;
+  return path.length > 1 ? path.replace(/\/$/, "") : path;
 }
+
 
 function updateActiveNav(path) {
     const links = document.querySelectorAll(".nav__link");
@@ -33,7 +34,9 @@ function updateActiveNav(path) {
 }
 
 export function navigateTo(path) {
-    if (window.location.pathname === path) return;
-    history.pushState(null, "", path);
-    router();
+  const currentPath = normalizePath(window.location.pathname);
+  const nextPath = normalizePath(path);
+  if (currentPath === nextPath) return;
+  history.pushState(null, "", nextPath);
+  router();
 }
