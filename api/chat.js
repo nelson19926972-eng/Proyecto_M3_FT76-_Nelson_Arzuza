@@ -7,6 +7,7 @@ import {
 import { toGeminiContents } from "./utils/gemini.js";
 import { parseJsonBody, getMessages, getGenerationSettings } from "./utils/request.js";
 import { createChatResponse } from "./utils/response.js";
+import { shouldUseMockApi, buildMockChatResponse } from "./utils/mockApi.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -15,6 +16,17 @@ export default async function handler(req, res) {
 
   try {
     const payload = parseJsonBody(req.body);
+
+    if (shouldUseMockApi(process.env)) {
+      const messages = getMessages(payload);
+      const mockResponse = buildMockChatResponse({
+        payload,
+        lastUserText: messages.at(-1)?.content ?? "",
+      });
+
+      return res.status(200).json(mockResponse);
+    }
+
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
