@@ -170,6 +170,56 @@ npm test mockApi.test.js
 > **Detalle de la respuesta IA (mockApi):** el paso a paso completo (crear el helper `mockApi.js`,
 > inyectar la condición en `chat.js` según `NODE_ENV`/`MOCK_API`, y escribir el test en Vitest)
 > se documenta en texto en lugar de captura, ver commit correspondiente / historial del chat.
+1) Mantener la API real intacta
+La función handler en chat.js sigue haciendo lo mismo cuando no estamos en test ni en mock explícito:
+
+valida método POST
+parsea el payload
+comprueba GEMINI_API_KEY
+llama a Google Generative AI
+devuelve la respuesta normal
+La diferencia es que antes de intentar usar Gemini, agrega una condición:
+
+si NODE_ENV === "test" o MOCK_API === "true", no llama a Google
+Esto es importante porque en Vitest ya viene NODE_ENV=test, así que no hace falta instalar nada extra.
+
+2) Crear un helper modular de mock
+En mockApi.js se separa la lógica:
+
+shouldUseMockApi(env) decide si hay que mockear
+getLastUserText(messages) saca el último mensaje del usuario
+buildMockChatResponse(...) arma una respuesta con la misma forma que la API real:
+id
+type
+role
+content
+stop_reason
+usage
+Esto deja los tests muy parecidos a la realidad, sin romper el contrato del cliente.
+
+3) Inyectar la condición en el handler
+En chat.js, la idea es esta:
+
+parsear payload
+si shouldUseMockApi(process.env):
+obtener messages
+construir respuesta mock
+devolver res.status(200).json(mockResponse)
+si no, continuar con la llamada real a Gemini
+Así el flujo real queda intacto y la mock se activa solo en local/test.
+
+4) Escribir test realista con Vitest
+En mockApi.test.js validamos dos cosas:
+
+que el selector de mock funciona
+que la respuesta mock tiene exactamente la forma esperada del chat
+No se usa ninguna librería extra: solo describe, it, expect de Vitest.
+
+
+**Criterio general:** la AI se uso para acelerar y para consultar dudas conceptuales, no para
+generar codigo a ciegas. Toda sugerencia se leyo, se probo en el navegador y se ajusto o se
+descarto cuando no encajaba con los requisitos.
+
 ---
 
 ## Licencia y aviso
