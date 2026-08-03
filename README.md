@@ -158,10 +158,9 @@ npm test mockApi.test.js
 # Algunos prompt utilizados:
 
 1. Navegacion movil no funciona
-|-------|---------|
-| prompt: |![p1](./src/assets/img/imgREADME/image.png)
-| iares: |![ai1](./src/assets/img/imgREADME/image-1.png)
-| codigo: |![c1](./src/assets/img/imgREADME/image-2.png)
+- prompt: ![p1](./src/assets/img/imgREADME/image.png)
+- iares: ![ai1](./src/assets/img/imgREADME/image-1.png)
+- codigo: ![c1](./src/assets/img/imgREADME/image-2.png)
 
 2. Error 404 not found
 - prompt: ![p2](./src/assets/img/imgREADME/image-3.png)
