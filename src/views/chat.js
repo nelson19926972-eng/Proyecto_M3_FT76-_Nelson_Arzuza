@@ -22,7 +22,7 @@ export function renderChat() {
   app.innerHTML = `
     <section class="chat" aria-labelledby="chat-title">
       <header class="chat__header">
-        <img class="chat__avatar" src="./src/assets/img/kratos-avatar.png" alt="Retrato de Kratos" width="56" height="56" />
+        <img class="chat__avatar" src="/src/assets/img/kratos-avatar.png" alt="Retrato de Kratos" width="56" height="56" />
         <div class="chat__identity">
           <h1 class="chat__name" id="chat-title">Kratos</h1>
           <p class="chat__status">El Fantasma de Esparta &middot; God of War</p>
