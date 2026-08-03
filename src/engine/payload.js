@@ -48,13 +48,15 @@ export function buildPayload(character, messages) {
 }
 
 export function isValidPayload(payload) {
+  if (!payload || typeof payload !== "object") return false;
   if (typeof payload.model !== "string") return false;
   if (typeof payload.system !== "string") return false;
   if (!Array.isArray(payload.messages)) return false;
+
   return payload.messages.every((msg) => {
+    if (!msg || typeof msg !== "object") return false;
     const validRole = msg.role === "user" || msg.role === "assistant";
-    const textContent = typeof msg?.content === "string";
+    const textContent = typeof msg.content === "string";
     return validRole && textContent;
   });
-
 }
