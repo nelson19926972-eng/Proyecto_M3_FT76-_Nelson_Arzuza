@@ -28,7 +28,7 @@ export function renderChat() {
           <h1 class="chat__name" id="chat-title">Kratos</h1>
           <p class="chat__status">El Fantasma de Esparta &middot; God of War</p>
         </div>
-        <button type="button" class="btn btn--ghost btn--sm" id="chat-reset">Reiniciar</button>
+        <button type="button" class="btn btn--ghost btn--sm" id="chat-reset">Limpiar Chat</button>
       </header>
 
       <div class="chat__scroll" id="chat-scroll">
