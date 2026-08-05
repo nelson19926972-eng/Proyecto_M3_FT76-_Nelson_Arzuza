@@ -4,6 +4,7 @@ import {
   appendUserMessage,
   getTrimmedHistory,
   resetHistory,
+  clearHistory,
 } from "../engine/history.js";
 import { buildPayload, getCharacter } from "../engine/payload.js";
 
@@ -160,7 +161,7 @@ export function renderChat() {
   });
 
   resetButton.addEventListener("click", () => {
-    history = resetHistory();
+    history = clearHistory();
     isTyping = false;
     setError("");
     input.value = "";
@@ -171,4 +172,3 @@ export function renderChat() {
   renderMessages();
   setBusy(false);
 }
-
